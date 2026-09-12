@@ -23,14 +23,14 @@ export class PlayScene extends Phaser.Scene {
   private covers!: Phaser.Physics.Arcade.StaticGroup;
   private playerBullets!: Phaser.Physics.Arcade.Group;
   private enemyBullets!: Phaser.Physics.Arcade.Group;
-  private keys!: {
+  private keys: {
     left: Phaser.Input.Keyboard.Key;
     right: Phaser.Input.Keyboard.Key;
     jump: Phaser.Input.Keyboard.Key;
     crouch: Phaser.Input.Keyboard.Key;
     reload: Phaser.Input.Keyboard.Key;
     flash: Phaser.Input.Keyboard.Key;
-  };
+  } | null = null;
   private gun: GunId = "pistol";
   private ammo = GUNS.pistol.mag;
   private reloading = false;
@@ -85,11 +85,12 @@ export class PlayScene extends Phaser.Scene {
     if (this.ended) return;
     const dt = delta / 1000;
     const input = this.controls.read();
-    const kbLeft = this.keys.left.isDown;
-    const kbRight = this.keys.right.isDown;
+    const kb = this.keys;
+    const kbLeft = kb?.left.isDown ?? false;
+    const kbRight = kb?.right.isDown ?? false;
     const moveX = input.move.x !== 0 ? input.move.x : (kbRight ? 1 : 0) - (kbLeft ? 1 : 0);
-    const crouch = input.crouch || this.keys.crouch.isDown;
-    const jump = input.jumpPressed || Phaser.Input.Keyboard.JustDown(this.keys.jump);
+    const crouch = input.crouch || Boolean(kb?.crouch.isDown);
+    const jump = input.jumpPressed || Boolean(kb && Phaser.Input.Keyboard.JustDown(kb.jump));
 
     this.setCrouch(crouch);
     const body = this.player.body as Phaser.Physics.Arcade.Body;
@@ -107,8 +108,8 @@ export class PlayScene extends Phaser.Scene {
       this.input.activePointer.leftButtonDown();
     if (firing) this.tryShoot();
 
-    if (Phaser.Input.Keyboard.JustDown(this.keys.reload)) this.reload();
-    if (Phaser.Input.Keyboard.JustDown(this.keys.flash)) this.useFlash();
+    if (kb && Phaser.Input.Keyboard.JustDown(kb.reload)) this.reload();
+    if (kb && Phaser.Input.Keyboard.JustDown(kb.flash)) this.useFlash();
 
     this.updateEnemy();
     this.drawAimLine();
@@ -183,7 +184,8 @@ export class PlayScene extends Phaser.Scene {
   private bindKeys(): void {
     const kb = this.input.keyboard;
     if (!kb) {
-      throw new Error("keyboard missing");
+      this.keys = null;
+      return;
     }
     this.keys = {
       left: kb.addKey("A"),
@@ -284,7 +286,10 @@ export class PlayScene extends Phaser.Scene {
     const group = friendly ? this.playerBullets : this.enemyBullets;
     const bullet = group.create(x, y, friendly ? "bullet" : "enemy-bullet") as Phaser.Physics.Arcade.Image;
     bullet.setData("payload", { friendly, damage } satisfies BulletData);
-    this.physics.velocityFromRotation(angle, speed, bullet.body?.velocity);
+    const body = bullet.body as Phaser.Physics.Arcade.Body | null;
+    if (body) {
+      this.physics.velocityFromRotation(angle, speed, body.velocity);
+    }
     this.time.delayedCall(900, () => {
       if (bullet.active) bullet.destroy();
     });
