@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host"
+    "preview": "vite preview --host",
+    "deploy": "npm run build && npx --yes gh-pages -d dist --nojekyll"
   },
   "dependencies": {
     "phaser": "^3.88.2",

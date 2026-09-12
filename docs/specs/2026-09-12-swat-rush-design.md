@@ -178,6 +178,8 @@
 
 靜態網頁，iPhone 用 **Safari 打開連結** 就能玩。可「加到主畫面」當全螢幕網頁應用。不需 App Store、不需帳號、不需安裝 TestFlight。
 
+公開網址：https://metaapp100-debug.github.io/swat-rush/
+
 建議技術（核可後才動手，此處只定方向）：Phaser 3＋TypeScript＋Vite，匯出靜態檔；以 iPhone Safari 為驗收機。
 
 ---
