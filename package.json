@@ -1,0 +1,16 @@
+{
+  "name": "swat-rush",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "phaser": "^4.2.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

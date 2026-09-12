@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="史瓦特大進擊" />
+    <title>史瓦特大進擊：再突入</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="rotate-warn">
+        <p>請把 iPhone 橫過來</p>
+      </div>
+
+      <div id="start-overlay">
+        <h1>史瓦特大進擊</h1>
+        <p class="sub">再突入 · 手感切片</p>
+        <p class="hint">左搖桿走／跳／縮　右搖桿瞄準開火</p>
+        <button id="start-btn" type="button">點一下開始</button>
+      </div>
+
+      <div id="game-wrap">
+        <div id="game"></div>
+      </div>
+
+      <div id="hud" hidden>
+        <div id="hud-left">
+          <span id="hud-hp">體力 100</span>
+          <span id="hud-ammo">手槍 12/12</span>
+        </div>
+        <button id="btn-pause" type="button">暫停</button>
+      </div>
+
+      <div id="touch" hidden>
+        <div class="stick" id="stick-left" aria-label="移動">
+          <div class="stick-knob"></div>
+        </div>
+        <div class="right-cluster">
+          <div class="gun-row">
+            <button class="gun-btn active" data-gun="pistol" type="button">手</button>
+            <button class="gun-btn" data-gun="smg" type="button">衝</button>
+            <button class="gun-btn" data-gun="shotgun" type="button">散</button>
+          </div>
+          <div class="action-row">
+            <button id="btn-reload" type="button">換彈</button>
+            <button id="btn-flash" type="button">閃光</button>
+          </div>
+          <div class="stick" id="stick-right" aria-label="瞄準開火">
+            <div class="stick-knob"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="pause-overlay" hidden>
+        <p>暫停</p>
+        <button id="btn-resume" type="button">繼續</button>
+      </div>
+
+      <div id="result" hidden>
+        <h2 id="result-title">房間肅清</h2>
+        <ul id="result-stats"></ul>
+        <button id="btn-retry" type="button">再來一次</button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
