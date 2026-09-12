@@ -146,6 +146,10 @@ button {
   text-shadow: 0 1px 0 #000;
 }
 
+#hud-stage {
+  color: var(--accent);
+}
+
 #btn-pause {
   pointer-events: auto;
   min-height: 36px;

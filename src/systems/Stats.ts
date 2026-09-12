@@ -4,6 +4,7 @@ export type RunStats = {
   hp: number;
   kills: number;
   seconds: number;
+  stages: number;
   won: boolean;
 };
 
@@ -11,12 +12,14 @@ export class StatsTracker {
   shots = 0;
   hits = 0;
   kills = 0;
+  stages = 0;
   private started = 0;
 
   begin(): void {
     this.shots = 0;
     this.hits = 0;
     this.kills = 0;
+    this.stages = 0;
     this.started = performance.now();
   }
 
@@ -27,6 +30,7 @@ export class StatsTracker {
       hp,
       kills: this.kills,
       seconds: (performance.now() - this.started) / 1000,
+      stages: this.stages,
       won,
     };
   }

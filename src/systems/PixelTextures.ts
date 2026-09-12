@@ -36,6 +36,10 @@ const palette: Record<string, string> = {
   Y: "#f0e6a8",
   W: "#d7d2c4",
   G: "#3e3a32",
+  P: "#5a2a6e",
+  O: "#8a5a20",
+  A: "#6a6a72",
+  T: "#c9a24a",
 };
 
 export function createPixelTextures(scene: Phaser.Scene): void {
@@ -60,7 +64,7 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     ".NNNNNN.",
     ".LL..LL.",
   ], px);
-  paint(scene, "enemy-stand", [
+  paint(scene, "enemy-gunner", [
     "..KKKK..",
     ".KKRRKK.",
     ".EKKKKE.",
@@ -71,6 +75,54 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     ".EEEEEE.",
     ".EE..EE.",
     ".KK..KK.",
+  ], px);
+  paint(scene, "enemy-rusher", [
+    "..RRRR..",
+    ".RKKKKR.",
+    ".FKKKKF.",
+    ".KKKKKK.",
+    "..RRRR..",
+    ".RROORR.",
+    "RRROORRR",
+    ".OOOOOO.",
+    ".OO..OO.",
+    ".KK..KK.",
+  ], px);
+  paint(scene, "enemy-heavy", [
+    ".AAAAAA.",
+    "AAKKKKAA",
+    "AAKAAKAA",
+    "AAAAAAAA",
+    ".AAAAAA.",
+    "AAKAAKAA",
+    "AAAAAAAA",
+    ".AAAAAA.",
+    ".AA..AA.",
+    ".KK..KK.",
+  ], px);
+  paint(scene, "enemy-sprayer", [
+    "..TTTT..",
+    ".TKKKKT.",
+    ".FKKKKF.",
+    ".KKKKKK.",
+    "..TTTT..",
+    ".TTOOTT.",
+    "TTTOOTTT",
+    ".OOOOOO.",
+    ".OO..OO.",
+    ".KK..KK.",
+  ], px);
+  paint(scene, "enemy-jumper", [
+    "..PPPP..",
+    ".PKKKKP.",
+    ".FKKKKF.",
+    ".KKKKKK.",
+    "..PPPP..",
+    ".PPNNPP.",
+    "PPPNNPPP",
+    ".NNNNNN.",
+    ".NN..NN.",
+    ".LL..LL.",
   ], px);
   paint(scene, "cover", [
     "CCCCCCCCCCCC",
