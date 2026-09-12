@@ -39,6 +39,7 @@ const palette: Record<string, string> = {
 };
 
 export function createPixelTextures(scene: Phaser.Scene): void {
+  const px = 2;
   paint(scene, "player-stand", [
     "..HHHH..",
     ".HHHHHH.",
@@ -50,7 +51,7 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     ".NNNNNN.",
     ".NN..NN.",
     ".LL..LL.",
-  ]);
+  ], px);
   paint(scene, "player-crouch", [
     "..HHHH..",
     ".FHHHHF.",
@@ -58,7 +59,7 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     "BBBNNBBB",
     ".NNNNNN.",
     ".LL..LL.",
-  ]);
+  ], px);
   paint(scene, "enemy-stand", [
     "..KKKK..",
     ".KKRRKK.",
@@ -70,7 +71,7 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     ".EEEEEE.",
     ".EE..EE.",
     ".KK..KK.",
-  ]);
+  ], px);
   paint(scene, "cover", [
     "CCCCCCCCCCCC",
     "CDDDDDDDDDDC",
@@ -83,8 +84,8 @@ export function createPixelTextures(scene: Phaser.Scene): void {
     "CCCCCCCCCCCC",
     "CDDDDDDDDDDC",
     "CCCCCCCCCCCC",
-  ]);
-  paint(scene, "bullet", ["WY", "YW"]);
-  paint(scene, "enemy-bullet", ["R.", ".R"]);
-  paint(scene, "muzzle", ["Y.", "WY"]);
+  ], px);
+  paint(scene, "bullet", ["WY", "YW"], px);
+  paint(scene, "enemy-bullet", ["R.", ".R"], px);
+  paint(scene, "muzzle", ["Y.", "WY"], px);
 }

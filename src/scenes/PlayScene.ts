@@ -150,8 +150,8 @@ export class PlayScene extends Phaser.Scene {
     this.player.setOrigin(0.5, 1);
     this.player.setCollideWorldBounds(true);
     const pBody = this.player.body as Phaser.Physics.Arcade.Body;
-    pBody.setSize(8, 16);
-    pBody.setOffset(0, 0);
+    pBody.setSize(12, 18);
+    pBody.setOffset(2, 2);
     this.player.setGravityY(520);
 
     this.enemy = this.physics.add.sprite(286, GROUND_Y, "enemy-stand");
@@ -159,7 +159,8 @@ export class PlayScene extends Phaser.Scene {
     const eBody = this.enemy.body as Phaser.Physics.Arcade.Body;
     eBody.setAllowGravity(false);
     eBody.setImmovable(true);
-    eBody.setSize(8, 16);
+    eBody.setSize(12, 18);
+    eBody.setOffset(2, 2);
 
     const ground = this.physics.add.staticGroup();
     const floor = this.add.rectangle(GAME_W / 2, GROUND_Y + 6, GAME_W, 12, COLORS.floor, 0);
@@ -217,7 +218,7 @@ export class PlayScene extends Phaser.Scene {
     mustEl("#pause-overlay").hidden = true;
     this.input.on("pointermove", (p: Phaser.Input.Pointer) => {
       if (p.isDown && p.x >= 80 && p.x <= 240) {
-        this.aim = Phaser.Math.Angle.Between(this.player.x, this.player.y - 10, p.x, p.y);
+        this.aim = Phaser.Math.Angle.Between(this.player.x, this.player.y - 14, p.x, p.y);
       }
     });
   }
@@ -238,9 +239,11 @@ export class PlayScene extends Phaser.Scene {
     this.player.setTexture(on ? "player-crouch" : "player-stand");
     const body = this.player.body as Phaser.Physics.Arcade.Body;
     if (on) {
-      body.setSize(8, 10);
+      body.setSize(12, 12);
+      body.setOffset(2, 0);
     } else {
-      body.setSize(8, 16);
+      body.setSize(12, 18);
+      body.setOffset(2, 2);
     }
   }
 
@@ -269,7 +272,7 @@ export class PlayScene extends Phaser.Scene {
     const base = this.aim - Phaser.Math.DegToRad(this.climb + gun.kick * 0.3);
     for (let i = 0; i < gun.pellets; i += 1) {
       const spread = Phaser.Math.DegToRad((Math.random() * 2 - 1) * gun.spread);
-      this.spawnBullet(this.player.x + this.facing * 6, this.player.y - (this.crouched ? 6 : 11), base + spread, true, gun.damage, gun.speed);
+      this.spawnBullet(this.player.x + this.facing * 6, this.player.y - (this.crouched ? 8 : 14), base + spread, true, gun.damage, gun.speed);
     }
     this.stats.shots += gun.pellets;
     if (this.ammo <= 0) this.reload();
@@ -325,12 +328,12 @@ export class PlayScene extends Phaser.Scene {
     this.enemyNextShot = this.time.now + 1100;
     const angle = Phaser.Math.Angle.Between(
       this.enemy.x,
-      this.enemy.y - 11,
+      this.enemy.y - 14,
       this.player.x,
-      this.player.y - (this.crouched ? 6 : 11),
+      this.player.y - (this.crouched ? 8 : 14),
     );
     const spread = Phaser.Math.DegToRad((Math.random() * 2 - 1) * 7);
-    this.spawnBullet(this.enemy.x - 6, this.enemy.y - 11, angle + spread, false, 12, 160);
+    this.spawnBullet(this.enemy.x - 6, this.enemy.y - 14, angle + spread, false, 12, 160);
   }
 
   private hitEnemy(bullet: Phaser.Physics.Arcade.Image): void {
@@ -366,7 +369,7 @@ export class PlayScene extends Phaser.Scene {
     const gun = GUNS[this.gun];
     const angle = this.aim - Phaser.Math.DegToRad(this.climb);
     const x = this.player.x + this.facing * 6;
-    const y = this.player.y - (this.crouched ? 6 : 11);
+    const y = this.player.y - (this.crouched ? 8 : 14);
     gfx.lineStyle(1, COLORS.muzzle, 0.55);
     gfx.beginPath();
     gfx.moveTo(x, y);
@@ -382,7 +385,7 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private updateHud(): void {
-    this.hpEl.textContent = `體力 ${this.hp}`;
+    this.hpEl.textContent = `體力 ${this.hp} / 100`;
     const gun = GUNS[this.gun];
     this.ammoEl.textContent = this.reloading ? `${gun.name} 換彈中` : `${gun.name} ${this.ammo}/${gun.mag}`;
   }
